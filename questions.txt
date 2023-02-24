@@ -1,4 +1,3 @@
-'What team number? ':type
-'What team name? ':type
-'How long? ':type
-'yes/no':yn
+'What team number?':type
+'What team name?':type
+'Are you gay?':yn

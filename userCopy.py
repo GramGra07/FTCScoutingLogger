@@ -23,9 +23,11 @@ file = open("fileToOpen.txt","r")
 file2Open = file.read()
 file.close()
 ct = datetime.datetime.now()
+ct = str(ct)
+c, sep, tail = ct.partition('.')
+c+='\n'
 l = open(file2Open, "a")
-ct = str(ct)+'\n'
-l.write(ct)
+l.write(c)
 l.close()
 #start
 app = QApplication(sys.argv)

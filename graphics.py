@@ -40,7 +40,7 @@ class qa(QMainWindow):
       if (list(qs.values())[q] == 'type'):
          self.typeQuestion(q)
       elif (list(qs.values())[q] == 'yn'):
-         self.yesNoButton(q)
+         self.ynButton(q)
    def typeQuestion(self,q):
        d=100
        self.q = questions[q]
@@ -55,31 +55,53 @@ class qa(QMainWindow):
        self.dbutton.setCheckable(True)
        self.dbutton.clicked.connect(self.doneClicked)
        
-   def yesNoButton(self,q):
-      d = 100
-      label = QLabel(questions[q])
-      self.q = questions[q]
-      layout = QVBoxLayout()
-      layout.addWidget(label)
-   
-      ybutton = QPushButton(boo[0],self)
-      ybutton.move(int(width/4*(2)+d/2),int(height/2))
-      ybutton.setFixedHeight(d)
-      ybutton.setFixedWidth(d)
-      ybutton.setCheckable(True)
-      ybutton.clicked.connect(self.yesClicked)
-      
-      nbutton = QPushButton(boo[1],self)
-      nbutton.move(int(width/4*(1)+d/2),int(height/2))
-      nbutton.setFixedHeight(d)
-      nbutton.setFixedWidth(d)
-      nbutton.setCheckable(True)
-      nbutton.clicked.connect(self.noClicked)
+##   def yesNoButton(self,q):
+##      d = 100
+##      label = QLabel(questions[q])
+##      self.q = questions[q]
+##      layout = QVBoxLayout()
+##   
+##      ybutton = QPushButton(boo[0],self)
+##      ybutton.move(int(width/4*(2)+d/2),int(height/2))
+##      ybutton.setFixedHeight(d)
+##      ybutton.setFixedWidth(d)
+##      ybutton.setCheckable(True)
+##      ybutton.clicked.connect(self.yesClicked)
+##      
+##      nbutton = QPushButton(boo[1],self)
+##      nbutton.move(int(width/4*(1)+d/2),int(height/2))
+##      nbutton.setFixedHeight(d)
+##      nbutton.setFixedWidth(d)
+##      nbutton.setCheckable(True)
+##      nbutton.clicked.connect(self.noClicked)
+##      layout.addWidget(ybutton)
+##      layout.addWidget(nbutton)
+##      layout.addWidget(label)
+   def ynButton(self, q):
+
+        reply = QMessageBox.question(self, questions[q],
+                    questions[q], QMessageBox.StandardButton.Yes |
+                    QMessageBox.StandardButton.No,
+                                     QMessageBox.StandardButton.No)
+##        dlg = QMessageBox(self)
+##        dlg.setWindowTitle("I have a question!")
+##        dlg.setText("This is a simple dialog")
+##        button = dlg.exec()
+##
+##        if button == QMessageBox.StandardButton.No:
+##            self.noClicked()
+##        else:
+##            self.yesClicked()
+        self.question = questions[q]
+        if reply == QMessageBox.StandardButton.Yes:
+           self.yesClicked()
+        else:
+           self.noClicked()
    def yesClicked(self):
-       self.log(self.question,'no')
+       self.log(self.question,'yes')
        self.deleteLater()
    def noClicked(self):
-       self.log(self.question,'yes')
+       self.log(self.question,'no')
        self.deleteLater()
    def doneClicked(self):
        self.log('',self.input.text())
