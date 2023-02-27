@@ -39,8 +39,10 @@ class qa(QMainWindow):
       q-=1
       if (list(qs.values())[q] == 'type'):
          self.typeQuestion(q)
-      elif (list(qs.values())[q] == 'yn'):
+      if (list(qs.values())[q] == 'yn'):
          self.ynButton(q)
+      elif (list(qs.values())[q] == 'draw'):
+         self.draw(q)
    def typeQuestion(self,q):
        d=100
        self.q = questions[q]
@@ -54,44 +56,29 @@ class qa(QMainWindow):
        self.dbutton.setFixedWidth(d)
        self.dbutton.setCheckable(True)
        self.dbutton.clicked.connect(self.doneClicked)
-       
-##   def yesNoButton(self,q):
-##      d = 100
-##      label = QLabel(questions[q])
-##      self.q = questions[q]
-##      layout = QVBoxLayout()
-##   
-##      ybutton = QPushButton(boo[0],self)
-##      ybutton.move(int(width/4*(2)+d/2),int(height/2))
-##      ybutton.setFixedHeight(d)
-##      ybutton.setFixedWidth(d)
-##      ybutton.setCheckable(True)
-##      ybutton.clicked.connect(self.yesClicked)
-##      
-##      nbutton = QPushButton(boo[1],self)
-##      nbutton.move(int(width/4*(1)+d/2),int(height/2))
-##      nbutton.setFixedHeight(d)
-##      nbutton.setFixedWidth(d)
-##      nbutton.setCheckable(True)
-##      nbutton.clicked.connect(self.noClicked)
-##      layout.addWidget(ybutton)
-##      layout.addWidget(nbutton)
-##      layout.addWidget(label)
+   def draw(self):
+      self.label = QtWidgets.QLabel()
+      canvas = QtGui.QPixmap(width, height)
+      canvas.fill(Qt.GlobalColor.white)
+      self.label.setPixmap(canvas)
+      self.setCentralWidget(self.label)
+      canvas = self.label.pixmap()
+      painter = QtGui.QPainter(canvas)
+      painter.drawLine(x1, y1, x2, y2)
+      painter.end()
+      self.dbutton = QPushButton('Done',self)
+      self.dbutton.move(int(width/3+d/2),int(height-100))
+      self.dbutton.setFixedHeight(d)
+      self.dbutton.setFixedWidth(d)
+      self.dbutton.setCheckable(True)
+      self.dbutton.clicked.connect(self.doneClicked)
+      self.label.setPixmap(canvas)
    def ynButton(self, q):
 
         reply = QMessageBox.question(self, questions[q],
                     questions[q], QMessageBox.StandardButton.Yes |
                     QMessageBox.StandardButton.No,
                                      QMessageBox.StandardButton.No)
-##        dlg = QMessageBox(self)
-##        dlg.setWindowTitle("I have a question!")
-##        dlg.setText("This is a simple dialog")
-##        button = dlg.exec()
-##
-##        if button == QMessageBox.StandardButton.No:
-##            self.noClicked()
-##        else:
-##            self.yesClicked()
         self.question = questions[q]
         if reply == QMessageBox.StandardButton.Yes:
            self.yesClicked()
@@ -107,6 +94,8 @@ class qa(QMainWindow):
        self.log('',self.input.text())
        steps.pop(0)
        self.deleteLater()
+   def mousePressEvent(self, e):
+       print("mousePressEvent")
    def log(self,question,answer):
        l = open(file2Open, "a")
        txt = question+answer+'\n'
