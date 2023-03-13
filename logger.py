@@ -106,8 +106,8 @@ btn_save = Button(text="save", command=save)
 btn_save.pack(side=tk.LEFT, expand=True, padx=5, pady=5)
 
 # legit setup for logging
-util.setup()
 file2Open = util.file2Open
-util.log(file2Open, "test", '')
+for i in range(util.count):
+    util.question(i+1)
 
 window.mainloop()  # run the window's main loop
