@@ -11,6 +11,7 @@ def log(file2Open, question, answer):
     c, sep, tail = ct.partition('.')
     print(c, question, answer)
 
+
 def setup():
     file = open("fileToOpen.txt", "r")
     global file2Open

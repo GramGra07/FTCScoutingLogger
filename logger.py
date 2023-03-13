@@ -2,66 +2,15 @@
 import tkinter as tk
 from tkinter import *
 import PIL
-from PIL import Image, ImageDraw,ImageTk
+from PIL import Image, ImageDraw, ImageTk
 import utilities as util
 
 c = "blue"
 window = tk.Tk()
-border_effects = {
-    "flat": tk.FLAT,
-    "sunken": tk.SUNKEN,
-    "raised": tk.RAISED,
-    "groove": tk.GROOVE,
-    "ridge": tk.RIDGE,
-}
-
-
-def makeLabel(text, fore, back, width, height):
-    label = tk.Label(
-        text=text,
-        foreground=fore,
-        background=back,
-        width=width,
-        height=height,
-        master=window
-    )
-    label.pack(expand=True, padx=5, pady=5)
-    # label.place(x=0, y=0)
-
-
-def button(text, width, height, fore, back):
-    b = tk.Button(text=text, width=width, height=height, fg=fore, bg=back, master=window)
-    b.pack(side=tk.LEFT, expand=True, padx=5, pady=5)
-    if text == "Done":
-        b.bind("<Button-1>", donePressed)
-    elif text == "Cancel":
-        b.bind("<Button-1>", cancelPressed)
-    elif text == "yes":
-        b.bind("<Button-1>", yesPressed)
-    elif text == "no":
-        b.bind("<Button-1>", noPressed)
-
-
-def entry(text, width, height, fore, back):
-    makeLabel(text, fore, back, width, height)
-    e = tk.Entry(width=width, fg=fore, bg=back, master=window)
-    e.pack(expand=True, padx=5, pady=5)
-
-
-def textBox(text, width, height, fore, back, frame):
-    height = int(height / 2)
-    makeLabel(text, fore, back, width, height)
-    textBox = tk.Text(width=width, height=height, fg=fore, bg=back, master=window)
-    textBox.pack(expand=True, padx=5, pady=5)
 
 
 def donePressed(event):
     print(e.get())
-    window.destroy()
-
-
-def cancelPressed(event):
-    print('cancel')
     window.destroy()
 
 
@@ -73,9 +22,11 @@ def yesPressed(event):
 def noPressed(event):
     print('no')
     window.destroy()
+
+
 def save():
     global image_number
-    filename = f'image_{image_number}.png'   # image_number increments by 1 at every save
+    filename = f'image_{image_number}.png'  # image_number increments by 1 at every save
     image1.save(filename)
     image_number += 1
 
@@ -89,48 +40,55 @@ def activate_paint(e):
 def paint(e):
     global lastx, lasty
     x, y = e.x, e.y
-    cv.create_line((lastx, lasty, x, y), width=3,fill = c)
+    cv.create_line((lastx, lasty, x, y), width=3, fill=c)
     draw.line((lastx, lasty, x, y), fill='black', width=1)
     lastx, lasty = x, y
+
 
 def turnRed(e):
     global c
     c = "red"
+
+
 def turnBlue(e):
     global c
     c = "blue"
+
+
 def clearAll(e):
     cv.delete('all')
-    cv.create_image(10,10,anchor=NW,image=img)
+    cv.create_image(10, 10, anchor=NW, image=img)
+
+
 width = 100
 height = 20
 
 # entry question
-#b = tk.Button(text="Done", width=width, height=height, fg="black", bg="white", master=window)
-#b.bind("<Button-1>", donePressed)
-#l = tk.Label(text="hi", foreground="white", background="black", width=width, height=height,
+# b = tk.Button(text="Done", width=width, height=height, fg="black", bg="white", master=window)
+# b.bind("<Button-1>", donePressed)
+# l = tk.Label(text="hi", foreground="white", background="black", width=width, height=height,
 #             master=window)
-#e = tk.Entry(width=width, fg="black", bg="white", master=window)
-#l.pack(side=tk.TOP, expand=True, padx=5, pady=5)
-#e.pack(expand=True, padx=5, pady=5)
-#b.pack(side=tk.LEFT, expand=True, padx=5, pady=5)
+# e = tk.Entry(width=width, fg="black", bg="white", master=window)
+# l.pack(side=tk.TOP, expand=True, padx=5, pady=5)
+# e.pack(expand=True, padx=5, pady=5)
+# b.pack(side=tk.LEFT, expand=True, padx=5, pady=5)
 
 # yes or no
-#l = tk.Label(text="Yes or no", foreground="white", background="black", width=width, height=height)
-#b = tk.Button(text="Yes", width=int(width/2), height=height, fg="black", bg="white", master=window)
-#b.bind("<Button-1>", yesPressed)
-#b2 = tk.Button(text="No", width=int(width/2), height=height, fg="black", bg="white", master=window)
-#b2.bind("<Button-1>", noPressed)
-#l.pack(side=tk.TOP, expand=True, padx=5, pady=5)
-#b.pack(side=tk.LEFT, expand=True, padx=5, pady=5)
-#b2.pack(side=tk.LEFT, expand=True, padx=5, pady=5)
+# l = tk.Label(text="Yes or no", foreground="white", background="black", width=width, height=height)
+# b = tk.Button(text="Yes", width=int(width/2), height=height, fg="black", bg="white", master=window)
+# b.bind("<Button-1>", yesPressed)
+# b2 = tk.Button(text="No", width=int(width/2), height=height, fg="black", bg="white", master=window)
+# b2.bind("<Button-1>", noPressed)
+# l.pack(side=tk.TOP, expand=True, padx=5, pady=5)
+# b.pack(side=tk.LEFT, expand=True, padx=5, pady=5)
+# b2.pack(side=tk.LEFT, expand=True, padx=5, pady=5)
 
-#draw
+# draw
 lastx, lasty = None, None
 image_number = 0
 cv = Canvas(window, width=640, height=480, bg='white')
-img= ImageTk.PhotoImage(Image.open("field.png"))
-cv.create_image(10,10,anchor=NW,image=img)
+img = ImageTk.PhotoImage(Image.open("field.png"))
+cv.create_image(10, 10, anchor=NW, image=img)
 image1 = PIL.Image.new('RGB', (640, 480), 'white')
 draw = ImageDraw.Draw(image1)
 cv.bind('<1>', activate_paint)
@@ -150,6 +108,6 @@ btn_save.pack(side=tk.LEFT, expand=True, padx=5, pady=5)
 # legit setup for logging
 util.setup()
 file2Open = util.file2Open
-util.log(file2Open, "test",'')
+util.log(file2Open, "test", '')
 
 window.mainloop()  # run the window's main loop
