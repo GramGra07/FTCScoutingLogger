@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import *
 import PIL
 from PIL import Image, ImageDraw,ImageTk
+import utilities as util
 
 c = "blue"
 window = tk.Tk()
@@ -145,5 +146,10 @@ clear.bind("<Button-1>", clearAll)
 clear.pack(side=tk.LEFT, expand=True, padx=5, pady=5)
 btn_save = Button(text="save", command=save)
 btn_save.pack(side=tk.LEFT, expand=True, padx=5, pady=5)
+
+# legit setup for logging
+util.setup()
+file2Open = util.file2Open
+util.log(file2Open, "test",'')
 
 window.mainloop()  # run the window's main loop
