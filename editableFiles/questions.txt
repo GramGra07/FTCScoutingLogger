@@ -1,4 +1,5 @@
-'Field Auto Draw':draw
 'What team number?':type
 'What team name?':type
 'Hello?':yn
+'Field Auto Draw':draw
+'end':done

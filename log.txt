@@ -1,0 +1,16 @@
+2023-03-13 23:52:07 What team number? 
+2023-03-13 23:52:07 What team name? 
+2023-03-13 23:52:08 Hello? yes
+2023-03-13 23:52:09 Field Auto Draw pictures/test.png saved
+2023-03-13 23:52:58 What team number? 
+2023-03-13 23:52:58 What team name? 
+2023-03-13 23:52:59 Hello? no
+2023-03-13 23:53:00 Field Auto Draw pictures/test.png saved
+2023-03-13 23:53:09 What team number? 
+2023-03-13 23:53:09 What team name? 
+2023-03-13 23:53:10 Hello? no
+2023-03-13 23:53:11 Field Auto Draw pictures/test.png saved
+2023-03-13 23:54:16 What team number? 
+2023-03-13 23:54:16 What team name? 
+2023-03-13 23:54:17 Hello? no
+2023-03-13 23:54:18 Field Auto Draw pictures/test.png saved

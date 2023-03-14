@@ -1,5 +1,6 @@
 import re
 import datetime
+import time
 import tkinter as tk
 from tkinter import *
 import PIL
@@ -9,6 +10,10 @@ from PIL import Image, ImageDraw, ImageTk
 global file2Open
 global width
 global height
+global color1
+global color2
+global title
+global finalMessage
 config = open("editableFiles/config.txt", "r")
 lines = config.readlines()
 count = 0
@@ -18,6 +23,9 @@ for line in lines:
         count += 1
         continue
     if count % 2 == 1:
+        if "title" in lines[count - 1]:
+            title = lines[count]
+            title = title.replace("\n", "")
         if "fileToOpen" in lines[count - 1]:
             file2Open = lines[count]
             file2Open = file2Open.replace("\n", "")
@@ -25,12 +33,23 @@ for line in lines:
             width = int(lines[count])
         elif "height" in lines[count - 1]:
             height = int(lines[count])
+        elif "color1" in lines[count - 1]:
+            color1 = lines[count]
+            color1 = color1.replace("\n", "")
+        elif "color2" in lines[count - 1]:
+            color2 = lines[count]
+            color2 = color2.replace("\n", "")
+        elif "finalMessage" in lines[count - 1]:
+            finalMessage = lines[count]
+            finalMessage = finalMessage.replace("\n", "")
         count += 1
 config.close()
 
 global cvHeight
 global cvWidth
-cv = open("utilDir/canvasConstraints.txt", "r")
+global textSize
+textSize = 45
+cv = open("utilDir/constraints.txt", "r")
 lines2 = cv.readlines()
 count = 0
 for line in lines2:
@@ -48,6 +67,7 @@ cv.close()
 
 c = "blue"
 window = tk.Tk()
+window.title(title)
 
 
 def log(file2Open, question, answer):
@@ -82,39 +102,38 @@ counter = 0
 
 def question(q):
     global counter
+    counter += 1
     global myVars
     myVars = vars()
     global quest
     quest = questions[q]
     if list(qs.values())[q] == 'type':
-        counter += 1
-        myVars.__setitem__("b" + str(counter),
-                           tk.Button(text="Done", width=50, height=5, fg="black", bg="white", master=window))
+        myVars["b" + str(counter)] = (
+            tk.Button(text="Done", foreground=color1, width=width, height=3, font=("Arial", textSize), master=window))
         myVars["b" + str(counter)].bind("<Button-1>", donePressed)
-        myVars["l" + str(counter)] = tk.Label(text=quest, foreground="white", background="black", width=width,
-                                              height=int(height / 2),
+        myVars["l" + str(counter)] = tk.Label(text=quest, foreground=color1, background=color2, width=width,
+                                              height=int(height / 2), font=("Arial", textSize),
                                               master=window)
-        myVars["e" + str(counter)] = tk.Entry(width=width, fg="black", bg="white", master=window)
+        myVars["e" + str(counter)] = tk.Entry(width=width, fg=color1, bg=color2, master=window,
+                                              font=("Arial", textSize), justify=tk.CENTER)
 
         myVars["l" + str(counter)].pack(side=tk.TOP, expand=True, padx=5, pady=5)
         myVars["e" + str(counter)].pack(side=tk.TOP, expand=True, padx=5, pady=5)
         myVars["b" + str(counter)].pack(side=tk.TOP, expand=True, padx=5, pady=5)
     elif list(qs.values())[q] == 'yn':
-        counter += 1
-        myVars["l" + str(counter)] = tk.Label(text=quest, foreground="white", background="black", width=width,
-                                              height=int(height / 3))
-        myVars["b" + str(counter)] = tk.Button(text="Yes", width=int(width / 2), height=height, fg="black", bg="white",
-                                               master=window)
+        myVars["l" + str(counter)] = tk.Label(text=quest, foreground=color1, background=color2, width=int(width * 2),
+                                              height=int(height / 3), font=("Arial", textSize), master=window)
+        myVars["b" + str(counter)] = tk.Button(text="Yes", width=int(width / 2), height=int(height / 3), fg=color2,
+                                               master=window, font=("Arial", int(textSize / 2)))
         myVars["b" + str(counter)].bind("<Button-1>", yesPressed)
-        myVars["b" + str(counter + 1)] = tk.Button(text="No", width=int(width / 2), height=height, fg="black",
-                                                   bg="white", master=window)
+        myVars["b" + str(counter + 1)] = tk.Button(text="No", width=int(width / 2), height=int(height / 3), fg=color2,
+                                                   master=window, font=("Arial", int(textSize / 2)))
         myVars["b" + str(counter + 1)].bind("<Button-1>", noPressed)
 
         myVars["l" + str(counter)].pack(side=tk.TOP, expand=True, padx=5, pady=5)
         myVars["b" + str(counter)].pack(side=tk.LEFT, expand=True, padx=5, pady=5)
         myVars["b" + str(counter + 1)].pack(side=tk.LEFT, expand=True, padx=5, pady=5)
     elif list(qs.values())[q] == 'draw':
-        counter += 1
         # draw
         lastx, lasty = None, None
         image_number = 0
@@ -133,11 +152,16 @@ def question(q):
         myVars["clear" + str(counter)].bind("<Button-1>", clearAll)
         myVars["btnSave" + str(counter)] = Button(text="save", command=save)
 
-        myVars["cv" + str(counter)].pack(expand=True, fill=BOTH)
+        myVars["cv" + str(counter)].pack(expand=True)
         myVars["b" + str(counter)].pack(side=tk.LEFT, expand=True, padx=5, pady=5)
         myVars["b" + str(counter + 1)].pack(side=tk.LEFT, expand=True, padx=5, pady=5)
         myVars["clear" + str(counter)].pack(side=tk.LEFT, expand=True, padx=5, pady=5)
         myVars["btnSave" + str(counter)].pack(side=tk.LEFT, expand=True, padx=5, pady=5)
+    if "end" in quest:
+        finished = tk.Label(text=finalMessage, foreground=color1, background=color2,
+                                              width=int(width),
+                                              height=int(height), font=("Arial", textSize), master=window)
+        finished.pack(side=tk.TOP, expand=True, padx=5, pady=5)
     window.mainloop()
 
 

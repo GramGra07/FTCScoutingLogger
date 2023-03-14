@@ -1,6 +1,12 @@
+title
+Scouting Logger 10448
 fileToOpen
 log.txt
 height
-40
+20
 width
-160
+27
+color1
+gold
+color2
+firebrick3
