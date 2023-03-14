@@ -203,12 +203,13 @@ def save():
     filename = 'pictures/test.png'
 
     log(file2Open, quest, filename + " saved")
-    x = 0
-    y = 0
-    x1 = x + window.winfo_screenwidth()
-    y1 = y + window.winfo_screenheight()
-    myVars["image1" + str(counter)].save(filename, put_item="/utilDir/field.png")
-    ImageGrab.grab().crop((x, y, x1, y1)).save(filename)
+    #x = 0
+    #y = 0
+    #x1 = x + window.winfo_screenwidth()
+    #y1 = y + window.winfo_screenheight()
+    #myVars["image1" + str(counter)].save(filename, put_item="/utilDir/field.png")
+    #ImageGrab.grab().crop((x, y, x1, y1)).save(filename)
+    myVars["cv" + str(counter)].to_file(filename)
 
     myVars["cv" + str(counter)].pack_forget()
     myVars["b" + str(counter)].pack_forget()

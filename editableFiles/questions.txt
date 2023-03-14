@@ -1,5 +1,5 @@
 'What team number?':type
 'What team name?':type
-'Hello?':yn
+'Can you score all junctions?':yn
 'Field Auto Draw':draw
 'end':done
