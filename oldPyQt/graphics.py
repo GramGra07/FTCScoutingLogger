@@ -5,10 +5,10 @@ import keyboard
 import json
 import re
 
-file = open("fileToOpen.txt", "r")
+file = open("../editableFiles/fileToOpen.txt", "r")
 file2Open = file.read()
 file.close()
-qtxt = open("questions.txt", "r")
+qtxt = open("../editableFiles/questions.txt", "r")
 Lines = qtxt.readlines()
 count = 0
 qs = {}

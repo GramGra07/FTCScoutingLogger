@@ -1,0 +1,6 @@
+fileToOpen
+log.txt
+height
+40
+width
+160

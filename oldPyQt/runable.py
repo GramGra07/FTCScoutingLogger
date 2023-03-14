@@ -1,15 +1,11 @@
-from PyQt6.QtWidgets import *
-from PyQt6.QtCore import *
-import sys
-import keyboard
-from graphics import *
+from oldPyQt.graphics import *
 import re
 import datetime
 
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
             'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
             'w', 'x', 'y', 'z']
-qtxt = open("questions.txt", "r")
+qtxt = open("../editableFiles/questions.txt", "r")
 Lines = qtxt.readlines()
 count = 0
 qs = {}
@@ -20,7 +16,7 @@ for line in Lines:
 questions = list(qs)
 qtxt.close()
 
-file = open("fileToOpen.txt", "r")
+file = open("../editableFiles/fileToOpen.txt", "r")
 file2Open = file.read()
 file.close()
 ct = datetime.datetime.now()
