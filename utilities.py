@@ -159,8 +159,8 @@ def question(q):
         myVars["btnSave" + str(counter)].pack(side=tk.LEFT, expand=True, padx=5, pady=5)
     if "end" in quest:
         finished = tk.Label(text=finalMessage, foreground=color1, background=color2,
-                                              width=int(width),
-                                              height=int(height), font=("Arial", textSize), master=window)
+                                              width=int(width*2),
+                                              height=int(height), font=("Arial", textSize-20), master=window)
         finished.pack(side=tk.TOP, expand=True, padx=5, pady=5)
     window.mainloop()
 
