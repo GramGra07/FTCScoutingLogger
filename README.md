@@ -6,7 +6,8 @@
    instructions (https://pip.pypa.io/en/stable/installation/)
 2. Make sure tkinter is installed on your computer, if not here are some
    instructions (https://www.tutorialspoint.com/how-to-install-tkinter-in-python)
-3. Install python3, instructions (https://www.python.org/downloads/)
+3. You will need pyscreenshot for it to work correctly, install it with  pip install pyscreenshot
+4. Install python3, instructions (https://www.python.org/downloads/)
 4. Clone or fork this repository
 5. Done
 

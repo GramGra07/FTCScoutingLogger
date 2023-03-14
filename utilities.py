@@ -1,10 +1,12 @@
 import re
 import datetime
 import time
+import os
 import tkinter as tk
 from tkinter import *
 import PIL
-from PIL import Image, ImageGrab
+import pyscreenshot as ImageGrab
+from PIL import Image
 from PIL import Image, ImageDraw, ImageTk
 
 global file2Open
@@ -157,10 +159,11 @@ def question(q):
         myVars["b" + str(counter + 1)].pack(side=tk.LEFT, expand=True, padx=5, pady=5)
         myVars["clear" + str(counter)].pack(side=tk.LEFT, expand=True, padx=5, pady=5)
         myVars["btnSave" + str(counter)].pack(side=tk.LEFT, expand=True, padx=5, pady=5)
+
     if "end" in quest:
         finished = tk.Label(text=finalMessage, foreground=color1, background=color2,
-                                              width=int(width*2),
-                                              height=int(height), font=("Arial", textSize-20), master=window)
+                            width=int(width * 2),
+                            height=int(height), font=("Arial", textSize - 20), master=window)
         finished.pack(side=tk.TOP, expand=True, padx=5, pady=5)
     window.mainloop()
 
@@ -199,17 +202,32 @@ def noPressed(event):
 
 
 def save():
-    # filename = "pictures/f'{teamNumber, teamName}.png'"
-    filename = 'pictures/test.png'
+    global filepath
+    filepath = "pictures/"
+    global filename
+    # filename = "f'{teamNumber, teamName}.png'"
+    filename = 'test.png'
+    myVars["image1" + str(counter)].save(filepath + "transPar" + filename, "png", colormode="auto")
+
+    img = Image.open(filepath + "transPar" + filename)
+    img = img.convert("RGBA")
+    datas = img.getdata()
+    newData = list()
+    for item in datas:
+        if item[0] == 255 and item[1] == 255 and item[2] == 255:
+            newData.append((255, 255, 255, 0))
+        else:
+            newData.append(item)
+    img.putdata(newData)
+    img.save(filepath + "transPar" + filename, "PNG")
+
+    background = Image.open("utilDir/field.png")
+    foreground = Image.open(filepath + "transPar" + filename)
+    background.paste(foreground, (0, 0), foreground)
+    background.save(filepath + filename)
+    os.remove(filepath + "transPar" + filename)
 
     log(file2Open, quest, filename + " saved")
-    #x = 0
-    #y = 0
-    #x1 = x + window.winfo_screenwidth()
-    #y1 = y + window.winfo_screenheight()
-    #myVars["image1" + str(counter)].save(filename, put_item="/utilDir/field.png")
-    #ImageGrab.grab().crop((x, y, x1, y1)).save(filename)
-    myVars["cv" + str(counter)].to_file(filename)
 
     myVars["cv" + str(counter)].pack_forget()
     myVars["b" + str(counter)].pack_forget()
