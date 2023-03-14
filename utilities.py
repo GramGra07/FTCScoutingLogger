@@ -1,11 +1,9 @@
 import re
 import datetime
-import time
 import os
 import tkinter as tk
 from tkinter import *
 import PIL
-import pyscreenshot as ImageGrab
 from PIL import Image
 from PIL import Image, ImageDraw, ImageTk
 
@@ -16,6 +14,7 @@ global color1
 global color2
 global title
 global finalMessage
+global font
 config = open("editableFiles/config.txt", "r")
 lines = config.readlines()
 count = 0
@@ -28,6 +27,9 @@ for line in lines:
         if "title" in lines[count - 1]:
             title = lines[count]
             title = title.replace("\n", "")
+        if "font" in lines[count - 1]:
+            font = lines[count]
+            font = font.replace("\n", "")
         if "fileToOpen" in lines[count - 1]:
             file2Open = lines[count]
             file2Open = file2Open.replace("\n", "")
@@ -49,7 +51,6 @@ config.close()
 
 global cvHeight
 global cvWidth
-global textSize
 textSize = 45
 cv = open("utilDir/constraints.txt", "r")
 lines2 = cv.readlines()
@@ -98,7 +99,6 @@ for q in range(len(questions)):
     steps.append(q)
 steps.append(len(questions))
 
-global counter
 counter = 0
 
 
@@ -111,25 +111,25 @@ def question(q):
     quest = questions[q]
     if list(qs.values())[q] == 'type':
         myVars["b" + str(counter)] = (
-            tk.Button(text="Done", foreground=color1, width=width, height=3, font=("Arial", textSize), master=window))
+            tk.Button(text="Done", foreground=color1, width=width, height=3, font=(font, textSize), master=window))
         myVars["b" + str(counter)].bind("<Button-1>", donePressed)
         myVars["l" + str(counter)] = tk.Label(text=quest, foreground=color1, background=color2, width=width,
-                                              height=int(height / 2), font=("Arial", textSize),
+                                              height=int(height / 2), font=(font, textSize),
                                               master=window)
         myVars["e" + str(counter)] = tk.Entry(width=width, fg=color1, bg=color2, master=window,
-                                              font=("Arial", textSize), justify=tk.CENTER)
+                                              font=(font, textSize), justify=tk.CENTER)
 
         myVars["l" + str(counter)].pack(side=tk.TOP, expand=True, padx=5, pady=5)
         myVars["e" + str(counter)].pack(side=tk.TOP, expand=True, padx=5, pady=5)
         myVars["b" + str(counter)].pack(side=tk.TOP, expand=True, padx=5, pady=5)
     elif list(qs.values())[q] == 'yn':
         myVars["l" + str(counter)] = tk.Label(text=quest, foreground=color1, background=color2, width=int(width * 2),
-                                              height=int(height / 3), font=("Arial", textSize), master=window)
+                                              height=int(height / 3), font=(font, textSize), master=window)
         myVars["b" + str(counter)] = tk.Button(text="Yes", width=int(width / 2), height=int(height / 3), fg=color2,
-                                               master=window, font=("Arial", int(textSize / 2)))
+                                               master=window, font=(font, int(textSize / 2)))
         myVars["b" + str(counter)].bind("<Button-1>", yesPressed)
         myVars["b" + str(counter + 1)] = tk.Button(text="No", width=int(width / 2), height=int(height / 3), fg=color2,
-                                                   master=window, font=("Arial", int(textSize / 2)))
+                                                   master=window, font=(font, int(textSize / 2)))
         myVars["b" + str(counter + 1)].bind("<Button-1>", noPressed)
 
         myVars["l" + str(counter)].pack(side=tk.TOP, expand=True, padx=5, pady=5)
@@ -163,7 +163,7 @@ def question(q):
     if "end" in quest:
         finished = tk.Label(text=finalMessage, foreground=color1, background=color2,
                             width=int(width * 2),
-                            height=int(height), font=("Arial", textSize - 20), master=window)
+                            height=int(height), font=(font, textSize - 20), master=window)
         finished.pack(side=tk.TOP, expand=True, padx=5, pady=5)
     window.mainloop()
 
@@ -205,9 +205,12 @@ def save():
     global filepath
     filepath = "pictures/"
     global filename
-    # filename = "f'{teamNumber, teamName}.png'"
-    filename = 'test.png'
-    myVars["image1" + str(counter)].save(filepath + "transPar" + filename, "png", colormode="auto")
+    filename = "f'{teamNumber, teamName}.png'"
+    #filename = 'test'
+    global fileTag
+    fileTag = ".png"
+    filename+=fileTag
+    myVars["image1" + str(counter)].save(filepath + "transPar" + filename)
 
     img = Image.open(filepath + "transPar" + filename)
     img = img.convert("RGBA")
@@ -219,13 +222,15 @@ def save():
         else:
             newData.append(item)
     img.putdata(newData)
-    img.save(filepath + "transPar" + filename, "PNG")
+    img.save(filepath + "transPar2" + filename)
 
     background = Image.open("utilDir/field.png")
-    foreground = Image.open(filepath + "transPar" + filename)
+    foreground = Image.open(filepath + "transPar2" + filename)
     background.paste(foreground, (0, 0), foreground)
-    background.save(filepath + filename)
+    savename = filepath + quest + "_" + filename
+    background.save(savename)
     os.remove(filepath + "transPar" + filename)
+    os.remove(filepath + "transPar2" + filename)
 
     log(file2Open, quest, filename + " saved")
 
