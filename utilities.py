@@ -206,10 +206,10 @@ def save():
     filepath = "pictures/"
     global filename
     filename = "f'{teamNumber, teamName}.png'"
-    #filename = 'test'
+    # filename = 'test'
     global fileTag
     fileTag = ".png"
-    filename+=fileTag
+    filename += fileTag
     myVars["image1" + str(counter)].save(filepath + "transPar" + filename)
 
     img = Image.open(filepath + "transPar" + filename)
