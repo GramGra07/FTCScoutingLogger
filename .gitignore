@@ -1,3 +1,4 @@
 .DS_Store
 log.txt
 *.xml
+__pycache__/utilities.cpython-311.pyc
