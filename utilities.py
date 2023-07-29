@@ -102,7 +102,7 @@ steps.append(len(questions))
 counter = 0
 
 
-def question(q):
+def question(q = 0):
   global counter
   counter += 1
   global myVars
@@ -137,8 +137,6 @@ def question(q):
     myVars["b" + str(counter + 1)].pack(side=tk.LEFT, expand=True, padx=5, pady=5)
   elif list(qs.values())[q] == 'draw':
     # draw
-    lastx, lasty = None, None
-    image_number = 0
     myVars["cv" + str(counter)] = Canvas(window, width=cvWidth, height=cvHeight, bg='white')
     myVars["img" + str(counter)] = ImageTk.PhotoImage(Image.open("utilDir/field.png"))
     myVars["cv" + str(counter)].create_image(0, 0, anchor=NW, image=myVars["img" + str(counter)])
@@ -205,11 +203,11 @@ def save():
   global filepath
   filepath = "pictures/"
   global filename
-  filename = f'{teamNumber, teamName}'
-  # filename = 'test'
+  filename = f'{teamNumber , teamName}'
   global fileTag
   fileTag = ".png"
   filename += fileTag
+
   myVars["image1" + str(counter)].save(filepath + "transPar" + filename)
 
   img = Image.open(filepath + "transPar" + filename)

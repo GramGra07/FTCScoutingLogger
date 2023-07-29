@@ -13,4 +13,4 @@ gold
 color2
 firebrick3
 finalMessage
-Thanks so much for submitting this survey!
+Thanks for submitting this survey!
