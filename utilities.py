@@ -138,7 +138,7 @@ def question(q = 0):
   elif list(qs.values())[q] == 'draw':
     # draw
     myVars["cv" + str(counter)] = Canvas(window, width=cvWidth, height=cvHeight, bg='white')
-    myVars["img" + str(counter)] = ImageTk.PhotoImage(Image.open("utilDir/field.png"))
+    myVars["img" + str(counter)] = ImageTk.PhotoImage(Image.open("utilDir/field 2.png"))
     myVars["cv" + str(counter)].create_image(0, 0, anchor=NW, image=myVars["img" + str(counter)])
     myVars["image1" + str(counter)] = PIL.Image.new('RGB', (640, 480), 'white')
     myVars["draw" + str(counter)] = ImageDraw.Draw(myVars["image1" + str(counter)])
@@ -222,7 +222,7 @@ def save():
   img.putdata(newData)
   img.save(filepath + "transPar2" + filename)
 
-  background = Image.open("utilDir/field.png")
+  background = Image.open("utilDir/field 2.png")
   foreground = Image.open(filepath + "transPar2" + filename)
   background.paste(foreground, (0, 0), foreground)
   savename = filepath + quest + "_" + filename

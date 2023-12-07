@@ -1,5 +1,5 @@
 title
-Scouting Logger 10448
+Scouting Logger 5115
 fileToOpen
 log.txt
 height
@@ -9,8 +9,8 @@ width
 font
 Arial
 color1
-gold
+black
 color2
-firebrick3
+pink
 finalMessage
 Thanks for submitting this survey!

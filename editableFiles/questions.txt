@@ -1,5 +1,9 @@
 'What team number?':type
 'What team name?':type
-'Can you score all junctions?':yn
+'What is your average teleOp score':type
+'What is your average auto score':type
+'Do you have a team prop?':yn
+'Can you score drones?':yn
+'Can you hang from rigging?':yn
 'Field Auto Draw':draw
 'end':done
