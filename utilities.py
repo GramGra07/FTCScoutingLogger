@@ -15,6 +15,7 @@ global color2
 global title
 global finalMessage
 global font
+dims = [300,300-24]
 config = open("editableFiles/config.txt", "r")
 lines = config.readlines()
 count = 0
@@ -139,8 +140,8 @@ def question(q = 0):
     # draw
     myVars["cv" + str(counter)] = Canvas(window, width=cvWidth, height=cvHeight, bg='white')
     myVars["img" + str(counter)] = ImageTk.PhotoImage(Image.open("utilDir/field 2.png"))
-    myVars["cv" + str(counter)].create_image(0, 0, anchor=NW, image=myVars["img" + str(counter)])
-    myVars["image1" + str(counter)] = PIL.Image.new('RGB', (640, 480), 'white')
+    myVars["cv" + str(counter)].create_image(dims[0]/2, 0, anchor=NW, image=myVars["img" + str(counter)])
+    myVars["image1" + str(counter)] = PIL.Image.new('RGB', (dims[0],dims[1]), 'white')
     myVars["draw" + str(counter)] = ImageDraw.Draw(myVars["image1" + str(counter)])
     myVars["cv" + str(counter)].bind('<1>', activate_paint)
     myVars["b" + str(counter)] = tk.Button(text="Blue", width=10, height=10, fg="Blue", bg="blue", master=window)
@@ -267,4 +268,4 @@ def turnBlue(e):
 
 def clearAll(e):
   myVars["cv" + str(counter)].delete('all')
-  myVars["cv" + str(counter)].create_image(0, 0, anchor=NW, image=myVars["img" + str(counter)])
+  myVars["cv" + str(counter)].create_image(dims[0]/2, 0, anchor=NW, image=myVars["img" + str(counter)])
