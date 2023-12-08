@@ -203,7 +203,7 @@ def save():
   global filepath
   filepath = "pictures/"
   global filename
-  filename = f'{teamNumber , teamName}'
+  filename = f'{teamNumber,teamName}'
   global fileTag
   fileTag = ".png"
   filename += fileTag

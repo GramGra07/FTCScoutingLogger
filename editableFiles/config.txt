@@ -11,6 +11,6 @@ Arial
 color1
 black
 color2
-pink
+hotPink
 finalMessage
 Thanks for submitting this survey!
